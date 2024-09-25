@@ -7,22 +7,14 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  Form,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormControl,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormDescription,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormField,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormItem,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormLabel,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormMessage,
-} from "@/components/ui/form"
+Form } from "@/components/ui/form"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Input } from "@/components/ui/input"
+import CustomFormField from "../CustomFormField"
+
+export enum FieldType {
+  INPUT = "input",
+}
  
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -54,22 +46,12 @@ const PatientForm = () => {
             <h1 className="header">Hi there 👋</h1>
             <p className="tex-dark-700">Schedule your first appointment</p>
         </section>
-        <FormField
+
+        <CustomFormField
+          fieldType={FieldType.INPUT}
           control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
         />
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
