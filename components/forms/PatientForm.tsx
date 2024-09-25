@@ -7,3 +7,5 @@ const PatientForm = () => {
 }
 
 export default PatientForm
+
+// Before adding another component
