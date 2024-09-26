@@ -11,6 +11,8 @@ Form } from "@/components/ui/form"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Input } from "@/components/ui/input"
 import CustomFormField from "../CustomFormField"
+import SubmitButton from "../SubmitButton"
+import { useState } from "react"
 
 export enum FieldType {
   INPUT = "input",
@@ -29,19 +31,22 @@ const formSchema = z.object({
 })
  
 const PatientForm = () => {
-  // 1. Define your form.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isLoading, SetIsLoading] = useState(false);
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
+      phone: "",
     },
   })
  
   // 2. Define a submit handler.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
   }
@@ -57,7 +62,7 @@ const PatientForm = () => {
           fieldType={FieldType.INPUT}
           control={form.control}
           name="name"
-          label="Fullname"
+          label="Full name"
           placeholder="Enter your username"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
@@ -81,7 +86,7 @@ const PatientForm = () => {
           placeholder="(256) 79234901242" // Using a simple placeHolder
         />
 
-        <Button type="submit">Submit</Button>
+        <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
   )
