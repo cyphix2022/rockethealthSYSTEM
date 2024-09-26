@@ -20,6 +20,8 @@ import { Control } from "react-hook-form"
 // Changed name to FieldType
 import { FieldType } from "./forms/PatientForm"
 import Image from "next/image"
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 interface CustomProps{
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,8 +67,20 @@ const RenderField = ({ field, props }: {field: any; props: CustomProps}) => {
 
         </div>
       )
-      
-  
+    case FieldType.PHONE_INPUT:
+      return(
+        <FormControl>
+          <PhoneInput
+            defaultCountry="UG"
+            placeholder={placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined} // E164 Number is refusing to work
+            onChange={field.onChange}
+            className="input-phone"
+           />
+        </FormControl>
+      )
     default:
       break;
   }
