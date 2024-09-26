@@ -38,10 +38,13 @@ interface CustomProps{
     renderSkeleton?: (field: any) => React.ReactNode,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const RenderInput = (props: CustomProps) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+const RenderField = ({ field, props }: {field: any; props: CustomProps}) => {
   return (
-    <Input {...props} />
+    <Input
+     type="text"
+     placeholder="John Doe"
+    />
   )
 }
 
@@ -50,7 +53,8 @@ const RenderInput = (props: CustomProps) => {
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const CustomFormField = ({ control, fieldType, name, label }: CustomProps) => {
+const CustomFormField = (props: CustomProps) => {
+  const { control, fieldType, name, label} = props;
   return (
     <FormField
           control={control}
@@ -61,8 +65,10 @@ const CustomFormField = ({ control, fieldType, name, label }: CustomProps) => {
               {fieldType !== FieldType.CHECKBOX && label && (
                 <FormLabel>{label}</FormLabel>
               )}
+              
+              <RenderField field={field} props={props} />
 
-            
+              <FormMessage className="shad-error" />
             </FormItem>
           )}
         />
