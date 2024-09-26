@@ -39,6 +39,17 @@ interface CustomProps{
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+const RenderInput = (props: CustomProps) => {
+  return (
+    <Input {...props} />
+  )
+}
+
+
+
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CustomFormField = ({ control, fieldType, name, label }: CustomProps) => {
   return (
     <FormField
