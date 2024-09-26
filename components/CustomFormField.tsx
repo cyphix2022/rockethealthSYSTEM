@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Control } from "react-hook-form"
 // Changed name to FieldType
 import { FieldType } from "./forms/PatientForm"
-
+import Image from "next/image"
 
 interface CustomProps{
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,12 +40,36 @@ interface CustomProps{
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 const RenderField = ({ field, props }: {field: any; props: CustomProps}) => {
-  return (
-    <Input
-     type="text"
-     placeholder="John Doe"
-    />
-  )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { fieldType, iconSrc, iconAlt, placeholder, } = props;
+  switch (fieldType) {
+    case FieldType.INPUT:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          {iconSrc && (
+            <Image
+              src={iconSrc} 
+              height={24}
+              width={24}
+              alt={iconAlt || "icon"}
+              className="ml-2"
+            />
+          )}
+          <FormControl>
+            <Input
+            placeholder={placeholder} 
+            {...field}
+            className="shad-input border-0"
+            />
+          </FormControl>
+
+        </div>
+      )
+      
+  
+    default:
+      break;
+  }
 }
 
 
@@ -65,7 +89,7 @@ const CustomFormField = (props: CustomProps) => {
               {fieldType !== FieldType.CHECKBOX && label && (
                 <FormLabel>{label}</FormLabel>
               )}
-              
+
               <RenderField field={field} props={props} />
 
               <FormMessage className="shad-error" />
